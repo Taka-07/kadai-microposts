@@ -21,6 +21,12 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var string
      */
+     
+    /*
+      モデルと接続されるテーブル名は、モデル名によって決められる。例えば、 Message モデルは messages テーブルと自動的に接続される
+      この規則を破って独自のモデル名を付けたい場合に、 $table を使用する
+      例えば、 Message モデルだけど、 msg テーブルを使いたいとなれば $table = 'msg' とすれば接続される
+    */
     protected $table = 'users';
 
     /**
@@ -28,6 +34,8 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
+     
+    //create() (AuthControllerで使用している)を使って一気にデータを代入する際に$fillable を定義しておく
     protected $fillable = ['name', 'email', 'password'];
 
     /**
