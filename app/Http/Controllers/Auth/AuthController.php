@@ -40,6 +40,8 @@ class AuthController extends Controller
     //追加
     //$redirectTo は postRegister() の最後に呼ばれるリダイレクト先のルーティングで、ユーザ登録直後のリダイレクト先の指定になる
     protected $redirectTo = "/";
+    //ログインページのフォームで間違った情報を送信し、ログイン失敗したときにリダイレクトされるリダイレクト先 ($loginPath)の設定
+    protected $loginPath ="/login";
     
     //Contoller の __construct() でミドルウェア(middleware)を設定することができる
     //Laravel ではミドルウェアは Controller にアクセスする前に事前に確認される条件
