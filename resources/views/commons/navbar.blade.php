@@ -20,7 +20,7 @@
                     {{-- Auth::check() は現在の閲覧者がログイン中の場合とログインしていない場合でナビバーの表示を分ける --}}
                     @if (Auth::check())
                         {{-- ログイン後のナビバー表示 --}}
-                        <li><a href="#">Users</a></li>
+                        <li>{!! link_to_route("users.index", "Users") !!}</li>
                         <li class="dropdown">
                             {{-- ドロップダウンメニューの設定　(Auth::user()->nameによってログインしているユーザの名前を取得し表示する) --}}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
