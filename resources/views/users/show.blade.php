@@ -17,10 +17,19 @@
         </aside>
         <div class="col-xs-8">
             <ul class="nav nav-tabs nav-justified">
-                <li><a href="#">Microposts</a></li>
+                {{-- それぞれのリンク先とMicropostの数のカウント --}}
+                {{-- class="{{ Request::is('users/' . $user->id) ? 'active' : '' }}" は、 /users/{id} という URL の場合には、 class="active" にするコード --}}
+                {{-- Bootstrap のタブでは class="active" を付与することで、このタブが今開いているページだとわかりやすくなる --}}
+                {{-- Request::is はその判定のために使用している　(詳しくは12 9.6参照) --}}
+                <li role="presentation" class="{{ Request::is('users/' . $user->id) ? 'active' : '' }}"><a href="{{ route('users.show', ['id' => $user->id]) }}">Microposts <span class="badge">{{ $count_microposts }}</span></a></li>
                 <li><a href="#">Followings</a></li>
                 <li><a href="#">Followers</a></li>
             </ul>
+            {{-- $micropostはUserControllerのshow()の$dataから持ってきている --}}
+            @if (count($microposts) > 0)
+                {{-- Micropostの一覧の表示 (microposts/microposts.blade.phpで変数が使用できるようになる["microposts" => $microposts]) --}}
+                @include("microposts.microposts", ["microposts" => $microposts])
+            @endif
         </div>
     </div>
 @endsection

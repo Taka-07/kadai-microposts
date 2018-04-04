@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// トップページ
+Route::get("/", "WelcomeController@index");
 
 // ユーザ登録　Routeで定義した@getRegisterがAuth\AuthControllerにあるgetRegisterアクションと繋がっている
 //getRegister() アクションによって resources/views/auth/register.blade.php を表示
@@ -35,4 +34,5 @@ Route::group() でルーティングのグループを作り、その際に ['mi
 */
 Route::group(["middleware" => "auth"], function () {
     Route::resource("users", "UsersController", ["only" => ["index", "show"]]);
+    Route::resource("microposts", "MicropostsController", ["only" => ["store", "destroy"]]);
 });

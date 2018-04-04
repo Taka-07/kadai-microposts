@@ -44,4 +44,12 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+    
+    //User から Micropost をみたとき、複数存在するので、function microposts()のように複数形 microposts でメソッドを定義する
+    public function microposts()
+    {
+        //User のインスタンスが自分の Microposts を取得することができる
+        //$user->microposts()->all() もしくは簡単に $user->microposts で取得できる　($thisには$userが入る)
+        return $this->hasMany(Micropost::class);
+    }
 }
