@@ -49,6 +49,9 @@ class AuthController extends Controller
     {
         //getLogoutアクション以外では guest である必要があるという条件を持ったミドルウェアが設定されている
         //guest とは、ログイン認証されていない閲覧者のこと
+        //つまり、 getLogout アクション以外ではログイン認証されていないことが必要という条件
+        //これを満たさない（既にログインしているのに getLogin アクションにアクセスした場合など）は、指定のリダイレクト先へ飛ばされる
+        //指定のリダイレクト先とは、これから私たちが設定する $redirectTo 変数に設定されたルーティングのこと
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -60,7 +63,7 @@ class AuthController extends Controller
      */
      
     //RegistersUsers トレイトの postRegister メソッドの中身を見ると、 validator() を呼び出しているのがわかる
-    //ユーザ登録の際のフォームデータのバリデーションを行っています。
+    //ユーザ登録の際のフォームデータのバリデーションを行っている。
     protected function validator(array $data)
     {
         return Validator::make($data, [

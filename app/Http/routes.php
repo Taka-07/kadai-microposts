@@ -34,5 +34,15 @@ Route::group() でルーティングのグループを作り、その際に ['mi
 */
 Route::group(["middleware" => "auth"], function () {
     Route::resource("users", "UsersController", ["only" => ["index", "show"]]);
+    //Route::group として ['prefix' => 'users/{id}'] を追加している。このグループ内のルーティングでは、 URL の最初に /users/{id}/ が付与される
+    //　例　GET /users/{id}/followings　10.2
+    Route::group(["prefix" => "users/{id}"], function () {
+        Route::post("follow", "UserFollowController@store")->name("user.follow");
+        Route::delete("unfollow", "UserFollowController@destroy")->name("user.unfollow");
+        
+        Route::get("followings", "UsersController@followings")->name("users.followings");
+        Route::get("followers", "UsersController@followers")->name("users.followers");
+    });
+    
     Route::resource("microposts", "MicropostsController", ["only" => ["store", "destroy"]]);
 });

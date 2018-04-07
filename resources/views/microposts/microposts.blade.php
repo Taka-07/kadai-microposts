@@ -1,4 +1,4 @@
-{{-- vendor/welcome.blade.phpでincludeしており、変数($microposts)が使用できる --}}
+{{-- welcome.blade.phpでincludeしており、変数($microposts)が使用できる --}}
 <ul class="media-list">
     @foreach ($microposts as $micropost)
         <?php $user = $micropost->user; ?>
