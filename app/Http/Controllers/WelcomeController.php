@@ -21,7 +21,7 @@ class WelcomeController extends Controller
         if (\Auth::check()) {
             //Auth::user() はログイン中のユーザを取得できる
             $user = \Auth::user();
-            $microposts = $user->microposts()->orderBy("created_at", "desc")->paginate(10);
+            $microposts = $user->feed_microposts()->orderBy("created_at", "desc")->paginate(10);
             
             $data = [
                 //("user" => $user)の左のデータ(user)をviewで変数として利用できるようになる

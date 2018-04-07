@@ -106,4 +106,15 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->followings()->where('follow_id', $userId)->exists();
     }
+    
+    public function feed_microposts()
+    {
+        //$this->followings()->lists('users.id')->toArray(); では User がフォローしている User の id の配列を取得している
+        // list() は与えられた引数のテーブルのカラム名だけを抜き出す、そして更に toArray() でただの配列に変換している
+        $follow_user_ids = $this->followings()->lists("users.id")->toArray();
+        //$follow_user_ids[] = $this->id; で自分の id も追加している (自分自身のマイクロポストも表示させるため)
+        $follow_user_ids[] = $this->id;
+        //microposts テーブルの user_id カラムで $follow_user_ids の中の id を含む場合に、全て取得して return している
+        return Micropost::whereIn("user_id", $follow_user_ids);
+    }
 }
