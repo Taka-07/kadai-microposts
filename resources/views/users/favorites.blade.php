@@ -13,8 +13,7 @@
                     <img class="media-object img-rounded img-responsive" src="{{ Gravatar::src($user->email, 500) }}" alt="">
                 </div>
             </div>
-            {{-- フォロー、アンフォローボタンの表示 (user_follow/follow_button.blade.phpで変数が使用できるようになる ["user" => $user]) --}}
-            @include("user_follow.follow_button", ["user" => $user])
+            @include('user_follow.follow_button', ['user' => $user])
         </aside>
         <div class="col-xs-8">
             <ul class="nav nav-tabs nav-justified">
@@ -23,8 +22,11 @@
                 <li role="presentation" class="{{ Request::is('users/*/followers') ? 'active' : '' }}"><a href="{{ route('users.followers', ['id' => $user->id]) }}">Followers <span class="badge">{{ $count_followers }}</span></a></li>
                 <li role="presentation" class="{{ Request::is('users/*/favorites') ? 'active' : '' }}"><a href="{{ route('users.favorites', ['id' => $user->id]) }}">Favorites <span class="badge">{{ $count_favorites }}</span></a></li>
             </ul>
-            {{-- ユーザ一覧の表示 (users/users.blade.phpで変数が使用できるようになる["users" => $users]) --}}
-            @include("users.users", ["users" => $users])
+         {{-- $micropostはUserControllerのfavorites()の$dataから持ってきている --}}
+            @if (count($microposts) > 0)
+                {{-- Micropostの一覧の表示 (microposts/microposts.blade.phpで変数が使用できるようになる["microposts" => $microposts]) --}}
+                @include("microposts.microposts", ["microposts" => $microposts])
+            @endif
         </div>
     </div>
 @endsection

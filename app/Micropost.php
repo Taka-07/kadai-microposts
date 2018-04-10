@@ -15,4 +15,10 @@ class Micropost extends Model
         //$micropost->user()->first() もしくは簡単に $micropost->user で取得できる ($thisには$micropostが入る)
         return $this->belongsTo(User::class);
     }
+    
+    //お気に入り機能　多対多の関係
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, "favorites", "micropost_id", "user_id")->withTimestamps();
+    }
 }
